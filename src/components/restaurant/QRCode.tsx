@@ -1,14 +1,42 @@
 
 import React from "react";
+import { QRCodeSVG } from "qrcode.react";
+import { useLocation } from "react-router-dom";
 
-// This is a placeholder for a real QR code generation component
-// In a real implementation, you'd use a QR code generation library
-const QRCode = () => {
+interface QRCodeProps {
+  restaurantId?: string;
+  restaurantName?: string;
+}
+
+const QRCode: React.FC<QRCodeProps> = ({ 
+  restaurantId = "demo-restaurant", 
+  restaurantName = "Restaurant Name" 
+}) => {
+  const location = useLocation();
+  
+  // Get the base URL (removing any paths)
+  const baseUrl = window.location.origin;
+  
+  // Create the menu URL that customers will visit when scanning the QR code
+  const menuUrl = `${baseUrl}/menu/${restaurantId}`;
+
   return (
     <div className="bg-white p-4 rounded-lg border border-gray-200">
-      <div className="w-64 h-64 mx-auto bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMTAgMjEwIj48cGF0aCBkPSJNMCAwaDIxMHYyMTBIMHoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMCAwaDMwdjMwSDB6TTE4MCAwaDMwdjMwSDB6TTAgMTgwaDMwdjMwSDB6TTg1IDg1aDQwdjQwSDg1ek0wIDMwaDMwdjE1MEgwek0zMCAwaDMwdjMwSDB6TTYwIDBoMzB2MzBIMHpNOTAgMGgzMHYzMEgwek0xMjAgMGgzMHYzMEgwek0xNTAgMGgzMHYzMEgwek0xODAgMzBoMzB2MTUwSDB6TTE1MCAxODBoMzB2MzBIMHpNMTgwIDE4MGgzMHYzMEgwek0xMjAgMTgwaDMwdjMwSDB6TTkwIDE4MGgzMHYzMEgwek02MCAxODBoMzB2MzBIMHpNMzAgMTgwaDMwdjMwSDB6TTMwIDMwaDEyMHYzMEgwek0zMCA2MGgzMHYzMEgwek0xNTAgNjBoMzB2MzBIMHpNMTUwIDMwaDMwdjMwSDB6TTMwIDkwaDMwdjMwSDB6TTYwIDkwaDMwdjMwSDB6TTI5IDYwaDMwdjMwSDB6TTEyMCA5MGgzMHYzMEgwek0xNTAgOTBoMzB2MzBIMHpNMzAgMTIwaDMwdjMwSDB6TTYwIDEyMGgzMHYzMEgwek0xMjAgMTIwaDMwdjMwSDB6TTE1MCAxMjBoMzB2MzBIMHpNMzAgMTUwaDMwdjMwSDB6TTYwIDE1MGgzMHYzMEgwek05MCAxNTBoMzB2MzBIMHpNMTIwIDE1MGgzMHYzMEgwek0xNTAgMTUwaDMwdjMwSDB6Ii8+PC9zdmc+')] bg-center bg-cover" />
+      <div className="w-64 h-64 mx-auto flex items-center justify-center">
+        <QRCodeSVG 
+          value={menuUrl}
+          size={240}
+          bgColor={"#ffffff"}
+          fgColor={"#000000"}
+          level={"H"}
+          includeMargin={false}
+        />
+      </div>
       <p className="text-center mt-4 font-medium text-gray-700">
-        Restaurant Name
+        {restaurantName}
+      </p>
+      <p className="text-center text-sm text-gray-500 mt-1">
+        Scan to view menu
       </p>
     </div>
   );

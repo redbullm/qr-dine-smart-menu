@@ -1,16 +1,96 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
-import { QrCode, UtensilsCrossed, Star, LineChart, PlusCircle } from "lucide-react";
+import { QrCode, UtensilsCrossed, Star, LineChart, PlusCircle, Download } from "lucide-react";
 import QRCode from "@/components/restaurant/QRCode";
 import MenuList from "@/components/restaurant/MenuList";
 import ReviewsList from "@/components/restaurant/ReviewsList";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Dashboard = () => {
+  const [restaurant, setRestaurant] = useState({
+    id: "demo-restaurant",
+    name: "Your Restaurant"
+  });
+  const { toast } = useToast();
+
+  // In a real implementation, we would fetch the restaurant data from Supabase
+  // This is just a placeholder for now
+  useEffect(() => {
+    // This would be replaced with actual data fetching once we have the tables set up
+    const fetchRestaurant = async () => {
+      try {
+        // This is where we would get the actual restaurant data
+        // const { data, error } = await supabase.from('restaurants').select('*').single();
+        // if (error) throw error;
+        // setRestaurant(data);
+        
+        // For now, we'll just simulate a restaurant
+        setRestaurant({
+          id: "demo-restaurant",
+          name: "Your Restaurant"
+        });
+      } catch (error) {
+        console.error("Error fetching restaurant data:", error);
+      }
+    };
+    
+    fetchRestaurant();
+  }, []);
+  
+  const handleDownloadQR = () => {
+    const svg = document.querySelector(".qr-code-container svg");
+    if (!svg) {
+      toast({
+        title: "Error",
+        description: "Could not find QR code to download",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Convert SVG to data URL
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    
+    // Create image from SVG
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      
+      // Draw white background
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw SVG on canvas
+      ctx.drawImage(img, 0, 0);
+      
+      // Convert to PNG and download
+      const pngUrl = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = `${restaurant.name.replace(/\s+/g, '-').toLowerCase()}-qr-code.png`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      
+      // Clean up
+      URL.revokeObjectURL(svgUrl);
+    };
+    img.src = svgUrl;
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <RestaurantHeader />
@@ -128,8 +208,11 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center">
-                  <QRCode />
-                  <Button className="mt-4 w-full">
+                  <div className="qr-code-container">
+                    <QRCode restaurantId={restaurant.id} restaurantName={restaurant.name} />
+                  </div>
+                  <Button className="mt-4 w-full" onClick={handleDownloadQR}>
+                    <Download className="h-4 w-4 mr-2" />
                     Download QR Code
                   </Button>
                 </CardContent>
