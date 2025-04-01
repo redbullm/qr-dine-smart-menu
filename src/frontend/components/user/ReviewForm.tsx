@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ReviewFormProps {
   restaurantId: string;
@@ -43,8 +44,33 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ restaurantId }) => {
     setIsSubmitting(true);
     
     try {
-      // This would normally be a real API call to submit the review
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Get the current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Authentication required",
+          description: "You must be logged in to submit a review",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Insert the review into Supabase
+      const { error } = await supabase
+        .from('reviews')
+        .insert({
+          restaurant_id: restaurantId,
+          user_id: user.id,
+          rating,
+          comment
+        });
+      
+      if (error) {
+        console.error("Error submitting review:", error);
+        throw error;
+      }
       
       toast({
         title: "Review submitted",
@@ -55,6 +81,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ restaurantId }) => {
       setRating(0);
       setComment("");
     } catch (error) {
+      console.error("Error:", error);
       toast({
         title: "Submission failed",
         description: "There was an error submitting your review. Please try again.",
