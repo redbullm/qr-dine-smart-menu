@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
+import RestaurantHeader from "@/frontend/components/restaurant/RestaurantHeader";
 import { QrCode, UtensilsCrossed, Star, LineChart, PlusCircle, Download } from "lucide-react";
-import QRCode from "@/components/restaurant/QRCode";
-import MenuList from "@/components/restaurant/MenuList";
-import ReviewsList from "@/components/restaurant/ReviewsList";
+import QRCode from "@/frontend/components/restaurant/QRCode";
+import MenuList from "@/frontend/components/restaurant/MenuList";
+import ReviewsList from "@/frontend/components/restaurant/ReviewsList";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 

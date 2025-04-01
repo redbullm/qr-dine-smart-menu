@@ -1,8 +1,8 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header from "@/frontend/components/layout/Header";
+import Footer from "@/frontend/components/layout/Footer";
 import { Link } from "react-router-dom";
 import { QrCode, UtensilsCrossed, Star, Users } from "lucide-react";
 
