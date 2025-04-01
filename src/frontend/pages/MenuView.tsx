@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Link, useParams } from "react-router-dom";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import ReviewForm from "@/components/user/ReviewForm";
+import ReviewForm from "@/frontend/components/user/ReviewForm";
 
 // Mock restaurant data
 const restaurant = {

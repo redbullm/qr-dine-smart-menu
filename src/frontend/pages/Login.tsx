@@ -5,18 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header from "@/frontend/components/layout/Header";
+import Footer from "@/frontend/components/layout/Footer";
 import { UtensilsCrossed, Users } from "lucide-react";
 
-const Register = () => {
+const Login = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-grow py-16 px-6 bg-gray-50">
         <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8 border border-gray-200">
-          <h1 className="text-3xl font-bold text-center mb-8">Create Account</h1>
+          <h1 className="text-3xl font-bold text-center mb-8">Log In</h1>
           
           <Tabs defaultValue="user" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
@@ -32,25 +32,6 @@ const Register = () => {
             
             <TabsContent value="user">
               <form className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name">First Name</Label>
-                    <Input
-                      id="first-name"
-                      placeholder="John"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name">Last Name</Label>
-                    <Input
-                      id="last-name"
-                      placeholder="Doe"
-                      required
-                    />
-                  </div>
-                </div>
-                
                 <div className="space-y-2">
                   <Label htmlFor="user-email">Email</Label>
                   <Input
@@ -62,7 +43,15 @@ const Register = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="user-password">Password</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="user-password">Password</Label>
+                    <Link
+                      to="/forgot-password"
+                      className="text-sm text-menu-secondary hover:underline"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <Input
                     id="user-password"
                     type="password"
@@ -71,26 +60,16 @@ const Register = () => {
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm Password</Label>
-                  <Input
-                    id="confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                  />
-                </div>
-                
                 <Button type="submit" className="w-full bg-menu-secondary hover:bg-menu-secondary/90">
-                  Create Account
+                  Log In
                 </Button>
               </form>
               
               <div className="mt-6 text-center text-sm">
                 <p>
-                  Already have an account?{" "}
-                  <Link to="/login" className="text-menu-secondary hover:underline">
-                    Log In
+                  Don't have an account?{" "}
+                  <Link to="/register" className="text-menu-secondary hover:underline">
+                    Sign Up
                   </Link>
                 </p>
               </div>
@@ -98,15 +77,6 @@ const Register = () => {
             
             <TabsContent value="restaurant">
               <form className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="restaurant-name">Restaurant Name</Label>
-                  <Input
-                    id="restaurant-name"
-                    placeholder="Amazing Restaurant"
-                    required
-                  />
-                </div>
-                
                 <div className="space-y-2">
                   <Label htmlFor="restaurant-email">Email</Label>
                   <Input
@@ -118,26 +88,15 @@ const Register = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="restaurant-phone">Phone Number</Label>
-                  <Input
-                    id="restaurant-phone"
-                    type="tel"
-                    placeholder="+1 (555) 123-4567"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="restaurant-address">Address</Label>
-                  <Input
-                    id="restaurant-address"
-                    placeholder="123 Restaurant Street"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="restaurant-password">Password</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="restaurant-password">Password</Label>
+                    <Link
+                      to="/restaurant/forgot-password"
+                      className="text-sm text-menu-primary hover:underline"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <Input
                     id="restaurant-password"
                     type="password"
@@ -146,26 +105,16 @@ const Register = () => {
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="restaurant-confirm-password">Confirm Password</Label>
-                  <Input
-                    id="restaurant-confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                  />
-                </div>
-                
                 <Button type="submit" className="w-full bg-menu-primary hover:bg-menu-primary/90">
-                  Register Restaurant
+                  Log In as Restaurant
                 </Button>
               </form>
               
               <div className="mt-6 text-center text-sm">
                 <p>
-                  Already have a restaurant account?{" "}
-                  <Link to="/restaurant/login" className="text-menu-primary hover:underline">
-                    Log In as Restaurant
+                  Don't have a restaurant account?{" "}
+                  <Link to="/restaurant/register" className="text-menu-primary hover:underline">
+                    Register Restaurant
                   </Link>
                 </p>
               </div>
@@ -179,4 +128,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

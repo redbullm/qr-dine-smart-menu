@@ -5,9 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./frontend/pages/Index";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import MenuView from "./pages/MenuView";
+import Login from "./frontend/pages/Login";
+import Register from "./frontend/pages/Register";
+import MenuView from "./frontend/pages/MenuView";
 import RestaurantDashboard from "./frontend/pages/restaurant/Dashboard";
 import NotFound from "./pages/NotFound";
 
