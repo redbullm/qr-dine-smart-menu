@@ -16,7 +16,7 @@ const Register = () => {
       
       <main className="flex-grow py-16 px-6 bg-gray-50">
         <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8 border border-gray-200">
-          <h1 className="text-3xl font-bold text-center mb-8">Create Account</h1>
+          <h1 className="text-3xl font-bold text-center mb-8">Sign Up</h1>
           
           <Tabs defaultValue="user" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
@@ -32,23 +32,14 @@ const Register = () => {
             
             <TabsContent value="user">
               <form className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name">First Name</Label>
-                    <Input
-                      id="first-name"
-                      placeholder="John"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name">Last Name</Label>
-                    <Input
-                      id="last-name"
-                      placeholder="Doe"
-                      required
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="user-name">Full Name</Label>
+                  <Input
+                    id="user-name"
+                    type="text"
+                    placeholder="John Doe"
+                    required
+                  />
                 </div>
                 
                 <div className="space-y-2">
@@ -72,9 +63,9 @@ const Register = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                  <Label htmlFor="user-confirm-password">Confirm Password</Label>
                   <Input
-                    id="confirm-password"
+                    id="user-confirm-password"
                     type="password"
                     placeholder="••••••••"
                     required
@@ -102,7 +93,8 @@ const Register = () => {
                   <Label htmlFor="restaurant-name">Restaurant Name</Label>
                   <Input
                     id="restaurant-name"
-                    placeholder="Amazing Restaurant"
+                    type="text"
+                    placeholder="Restaurant Name"
                     required
                   />
                 </div>
@@ -123,15 +115,6 @@ const Register = () => {
                     id="restaurant-phone"
                     type="tel"
                     placeholder="+1 (555) 123-4567"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="restaurant-address">Address</Label>
-                  <Input
-                    id="restaurant-address"
-                    placeholder="123 Restaurant Street"
                     required
                   />
                 </div>
